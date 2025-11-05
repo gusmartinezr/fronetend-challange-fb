@@ -1,0 +1,25 @@
+[debug] [2025-11-04T17:56:21.213Z] ----------------------------------------------------------------------
+[debug] [2025-11-04T17:56:21.214Z] Command:       /Users/erwinmarioleonramos/.nvm/versions/node/v20.19.5/bin/node /Users/erwinmarioleonramos/.nvm/versions/node/v20.19.5/bin/firebase init
+[debug] [2025-11-04T17:56:21.214Z] CLI Version:   14.23.0
+[debug] [2025-11-04T17:56:21.214Z] Platform:      darwin
+[debug] [2025-11-04T17:56:21.214Z] Node Version:  v20.19.5
+[debug] [2025-11-04T17:56:21.214Z] Time:          Tue Nov 04 2025 13:56:21 GMT-0400 (Bolivia Time)
+[debug] [2025-11-04T17:56:21.214Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/erwinmarioleonramos/Desktop/2025/otros/projects/prueba/atom-fe-challenge-template-ng-17
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 

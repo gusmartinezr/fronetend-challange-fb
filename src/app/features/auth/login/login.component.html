@@ -1,0 +1,35 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Task Manager</mat-card-title>
+      <mat-card-subtitle>Organiza tus tareas de manera eficiente</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" role="form"
+        aria-label="Formulario de inicio de sesión">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <mat-icon matPrefix>email</mat-icon>
+          <input matInput type="email" formControlName="email" placeholder="tu@email.com" autocomplete="email"
+            [disabled]="isLoading" (keydown.enter)="onEnterKey($event)" appAutofocus aria-label="Correo electrónico"
+            aria-required="true" [attr.aria-invalid]="email?.invalid && email?.touched" />
+          <mat-error *ngIf="email?.invalid && email?.touched">
+            {{ getEmailErrorMessage() }}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="error-message" *ngIf="errorMessage" role="alert" aria-live="polite">
+          {{ errorMessage }}
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" class="full-width submit-button"
+          [disabled]="isLoading || loginForm.invalid" aria-label="Iniciar sesión">
+          <span *ngIf="!isLoading">Iniciar Sesión</span>
+          <mat-spinner *ngIf="isLoading" diameter="24" aria-label="Cargando..."></mat-spinner>
+        </button>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,74 @@
+<div class="task-form-container">
+  <h2 mat-dialog-title>
+    <mat-icon>{{ isEditMode ? 'edit' : 'add_task' }}</mat-icon>
+    {{ isEditMode ? 'Editar Tarea' : 'Nueva Tarea' }}
+  </h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="taskForm" class="task-form">
+      <!-- Title field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Título de la tarea</mat-label>
+        <mat-icon matPrefix>title</mat-icon>
+        <input matInput formControlName="title" placeholder="Ej: Completar el proyecto" maxlength="100"
+          [disabled]="isLoading" appAutofocus aria-label="Título de la tarea" aria-required="true" />
+        <mat-hint align="start">Mínimo 3 caracteres</mat-hint>
+        <mat-hint align="end">{{ title?.value?.length || 0 }}/100</mat-hint>
+        <mat-error *ngIf="title?.invalid && title?.touched">
+          {{ getTitleErrorMessage() }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Description field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descripción</mat-label>
+        <mat-icon matPrefix>description</mat-icon>
+        <textarea matInput formControlName="description" placeholder="Describe los detalles de la tarea..." rows="5"
+          maxlength="500" [disabled]="isLoading" aria-label="Descripción de la tarea" aria-required="true"></textarea>
+        <mat-hint align="start">Mínimo 10 caracteres</mat-hint>
+        <mat-hint align="end">{{ description?.value?.length || 0 }}/500</mat-hint>
+        <mat-error *ngIf="description?.invalid && description?.touched">
+          {{ getDescriptionErrorMessage() }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Progress indicators (opcional) -->
+      <div class="progress-indicators" *ngIf="!isLoading">
+        <div class="progress-item">
+          <span class="progress-label">Título</span>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getTitleProgress()"
+              [class.progress-complete]="getTitleProgress() >= 100"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <span class="progress-label">Descripción</span>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getDescriptionProgress()"
+              [class.progress-complete]="getDescriptionProgress() >= 100"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div class="error-message" *ngIf="errorMessage" role="alert" aria-live="polite">
+        <mat-icon>error_outline</mat-icon>
+        {{ errorMessage }}
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" [disabled]="isLoading" [attr.aria-label]="'Cancelar'">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="isLoading || taskForm.invalid"
+      class="submit-button" [attr.aria-label]="isEditMode ? 'Guardar cambios' : 'Crear tarea'">
+      <mat-icon *ngIf="!isLoading">{{ isEditMode ? 'save' : 'add' }}</mat-icon>
+      <span *ngIf="!isLoading">{{ isEditMode ? 'Guardar' : 'Crear' }}</span>
+      <mat-spinner *ngIf="isLoading" diameter="20" [attr.aria-label]="'Guardando...'"></mat-spinner>
+    </button>
+  </mat-dialog-actions>
+
+</div>

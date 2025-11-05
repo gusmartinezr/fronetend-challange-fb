@@ -1,0 +1,74 @@
+<div class="task-list-container">
+  <!-- Toolbar -->
+  <mat-toolbar color="primary" class="toolbar">
+    <span class="toolbar-title">Mis Tareas</span>
+    <span class="spacer"></span>
+    <span class="user-email" *ngIf="currentUser">{{ currentUser.email }}</span>
+    <button mat-icon-button (click)="logout()" matTooltip="Cerrar sesión" aria-label="Cerrar sesión">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- Main content -->
+  <div class="content">
+    <!-- Statistics cards -->
+    <div class="stats-container" *ngIf="tasks.length > 0 && !isLoading">
+      <div class="stat-card pending">
+        <mat-icon>pending_actions</mat-icon>
+        <div class="stat-info">
+          <span class="stat-number">{{ pendingTasksCount }}</span>
+          <span class="stat-label">Pendientes</span>
+        </div>
+      </div>
+      <div class="stat-card completed">
+        <mat-icon>task_alt</mat-icon>
+        <div class="stat-info">
+          <span class="stat-number">{{ completedTasksCount }}</span>
+          <span class="stat-label">Completadas</span>
+        </div>
+      </div>
+      <div class="stat-card total">
+        <mat-icon>list_alt</mat-icon>
+        <div class="stat-info">
+          <span class="stat-number">{{ tasks.length }}</span>
+          <span class="stat-label">Total</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add task button -->
+    <div class="add-task-section">
+      <button mat-raised-button color="primary" (click)="openCreateTaskDialog()" class="add-task-button"
+        aria-label="Crear nueva tarea">
+        <mat-icon>add</mat-icon>
+        Nueva Tarea
+      </button>
+    </div>
+
+    <!-- Loading spinner -->
+    <div class="loading-container" *ngIf="isLoading" role="status" aria-live="polite">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando tareas...</p>
+    </div>
+
+    <!-- Tasks list -->
+    <div class="tasks-container" *ngIf="!isLoading">
+      <!-- Empty state -->
+      <div class="empty-state" *ngIf="tasks.length === 0" role="status">
+        <mat-icon class="empty-icon">task_alt</mat-icon>
+        <h2>No tienes tareas pendientes</h2>
+        <p>Comienza agregando una nueva tarea para organizar tu día</p>
+        <button mat-stroked-button color="primary" (click)="openCreateTaskDialog()" class="create-first-task">
+          <mat-icon>add_circle_outline</mat-icon>
+          Crear mi primera tarea
+        </button>
+      </div>
+
+      <!-- Task items -->
+      <div class="tasks-grid" *ngIf="tasks.length > 0" role="list" aria-label="Lista de tareas">
+        <app-task-item *ngFor="let task of tasks; trackBy: trackByTaskId" [task]="task" (toggle)="onToggleTask($event)"
+          (edit)="onEditTask($event)" (delete)="onDeleteTask($event)" role="listitem"></app-task-item>
+      </div>
+    </div>
+  </div>
+</div>
